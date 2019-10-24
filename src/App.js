@@ -21,7 +21,7 @@ function Button() {
 function DadJoke() {
   const { dadJoke } = useDadJokeState();
   console.count("DadJoke");
-  return <p>{dadJoke}</p>;
+  return <p>{dadJoke || 'Fetched dad joke'}</p>;
 }
 
 function App() {
