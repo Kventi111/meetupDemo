@@ -1,26 +1,60 @@
 import React from 'react';
 import logo from './logo.svg';
+import { connect } from 'react-redux';
+
+import * as actions from './actions';
 import './App.css';
 
-function App() {
+
+function Button({setDadJoke}) {
+  console.count('Button')
+  return (
+    <button className='btn' type="button" onClick={setDadJoke}>
+      Fetch dad joke
+    </button>
+  )
+}
+
+function DadJoke({dadJoke}) {
+  console.count('DadJoke')
+  return (
+    <p>
+      {dadJoke.joke || 'Fetch dad joke'}
+    </p>
+  )
+}
+
+function App({dadJoke,setDadJoke}) {
+
+  async function fetchDadJoke() {
+    const response = await fetch('https://icanhazdadjoke.com', {
+      headers: {
+        accept: 'application/json',
+      },
+    })
+    const data = await response.json()
+
+    setDadJoke(data)
+  }
+
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Button setDadJoke={fetchDadJoke} />
+        <DadJoke dadJoke={dadJoke}/>
       </header>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => ({ ...state })
+const mapDispatchToProps = {
+  ...actions,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
