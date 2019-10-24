@@ -37,7 +37,7 @@ function App({dadJoke,setDadJoke}) {
     setDadJoke(data)
   }
 
-
+  console.count('App')
   return (
     <div className="App">
       <header className="App-header">
