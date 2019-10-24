@@ -1,36 +1,41 @@
-import React from 'react';
+import React from "react";
 import {
   DadJokeProvider,
   useDadJokeState,
-  useDadJokeActions,
-} from './contexts/dad-jokes'
-// import logo from './logo.svg';
+  useDadJokeActions
+} from "./contexts/dad-jokes";
+
+import "./app.css";
+import logo from "./logo.svg";
 
 function Button() {
-  const { fetchDadJoke } = useDadJokeActions()
-  console.count('Button')
+  const { fetchDadJoke } = useDadJokeActions();
+  console.count("Button");
   return (
-    <button type="button" onClick={fetchDadJoke}>
+    <button className='btn' type="button" onClick={fetchDadJoke}>
       Fetch dad joke
     </button>
-  )
+  );
 }
 
 function DadJoke() {
-  const { dadJoke } = useDadJokeState()
-  console.count('DadJoke')
-  return (
-    <p>{dadJoke}</p>
-  )
+  const { dadJoke } = useDadJokeState();
+  console.count("DadJoke");
+  return <p>{dadJoke}</p>;
 }
 
 function App() {
-  console.count('App')
+  console.count("App");
   return (
-    <DadJokeProvider>
-      <Button />
-      <DadJoke />
-    </DadJokeProvider>
-  )
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <DadJokeProvider>
+          <Button />
+          <DadJoke />
+        </DadJokeProvider>
+      </header>
+    </div>
+  );
 }
 export default App;
